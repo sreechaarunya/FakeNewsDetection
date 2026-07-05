@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Fake News Detection</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- Animated Background -->
+    <div class="background">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="container">
+
+        <!-- Header -->
+        <div class="top">
+
+            <div>
+
+                <h1>
+                    <i class="fa-solid fa-shield-halved"></i>
+                    AI Fake News Detection
+                </h1>
+
+                <p>
+                    Verify News Articles using Machine Learning & NLP
+                </p>
+
+            </div>
+
+            <button id="theme-btn">
+                🌙
+            </button>
+
+        </div>
+
+        <!-- Form -->
+        <form action="/predict" method="POST">
+
+            <label>
+                <i class="fa-solid fa-newspaper"></i>
+                Paste News Article
+            </label>
+
+            <textarea
+                id="news"
+                name="news"
+                placeholder="Paste complete news article here..."
+                required></textarea>
+
+            <!-- Counter -->
+            <div class="counter">
+
+                <span id="words">
+                    Words : 0
+                </span>
+
+                <span id="chars">
+                    Characters : 0
+                </span>
+
+            </div>
+
+            <!-- Buttons -->
+            <div class="buttons">
+
+                <button type="submit" class="predict">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    Analyze News
+
+                </button>
+
+                <button
+                    type="button"
+                    id="clear"
+                    class="clear">
+
+                    <i class="fa-solid fa-trash"></i>
+
+                    Clear
+
+                </button>
+
+            </div>
+
+            <br>
+
+            <label class="upload-btn">
+
+                <i class="fa-solid fa-upload"></i>
+
+                Upload TXT File
+
+                <input
+                    type="file"
+                    id="fileUpload"
+                    accept=".txt"
+                    hidden>
+
+            </label>
+
+        </form>
+
+        <!-- Result -->
+
+        {% if prediction %}
+
+        <div class="result">
+
+            <h2
+                class="prediction-title"
+                style="color:{{ color }};">
+
+                <i class="fa-solid fa-microchip"></i>
+
+                {{ prediction }}
+
+            </h2>
+
+            {% if confidence > 0 %}
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar"
+                    style="width:{{ confidence }}%">
+                </div>
+
+            </div>
+
+            <div class="stats">
+
+                <div class="stat-box">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    <h4>Confidence</h4>
+
+                    <p>{{ confidence }}%</p>
+
+                </div>
+
+                <div class="stat-box">
+
+                    <i class="fa-solid fa-clock"></i>
+
+                    <h4>Prediction Time</h4>
+
+                    <p>{{ prediction_time }} sec</p>
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+            <button
+                id="copy-result"
+                class="copy-btn">
+
+                <i class="fa-solid fa-copy"></i>
+
+                Copy Result
+
+            </button>
+
+        </div>
+
+        <!-- Status -->
+
+        <div class="status-card">
+
+            <h3>
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                Analysis Status
+
+            </h3>
+
+            <ul>
+
+                <li>✔ Dataset Checked</li>
+
+                <li>✔ NLP Processing Completed</li>
+
+                <li>✔ Machine Learning Prediction Successful</li>
+
+            </ul>
+
+        </div>
+
+        {% endif %}
+
+        <!-- Footer -->
+
+        <footer>
+
+            <p>
+
+                <i class="fa-brands fa-python"></i>
+
+                Python
+
+                |
+
+                <i class="fa-solid fa-brain"></i>
+
+                Machine Learning
+
+                |
+
+                <i class="fa-solid fa-flask"></i>
+
+                Flask
+
+                |
+
+                <i class="fa-solid fa-language"></i>
+
+                NLP
+
+            </p>
+
+        </footer>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>
